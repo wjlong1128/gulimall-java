@@ -1,0 +1,15 @@
+spring:
+  application:
+    name: gulimall-ware
+  profiles:
+    active: dev
+  cloud:
+    nacos:
+      config:
+        group: dev
+        namespace: ware
+        file-extension: yaml
+        server-addr: localhost:8848
+      discovery:
+        namespace: gulimall
+        server-addr: localhost:8848
