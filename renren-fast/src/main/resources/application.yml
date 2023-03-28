@@ -12,6 +12,13 @@ server:
 
 spring:
   # 环境 dev|test|prod
+  cloud:
+    nacos:
+      discovery:
+        server-addr: localhost:8848
+        namespace: gulimall
+  application:
+    name: renrenfast
   profiles:
     active: dev
   # jackson时间格式化

@@ -10,10 +10,28 @@ package io.renren;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
+import org.springframework.context.annotation.Bean;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.reactive.CorsWebFilter;
+import org.springframework.web.cors.reactive.UrlBasedCorsConfigurationSource;
 
 
+@EnableDiscoveryClient
 @SpringBootApplication
 public class RenrenApplication {
+
+	//@Bean
+	//CorsWebFilter corsWebFilter(){
+	//	UrlBasedCorsConfigurationSource configSource = new UrlBasedCorsConfigurationSource();
+	//	CorsConfiguration config = new CorsConfiguration();
+	//	config.addAllowedHeader("*");
+	//	config.addAllowedMethod("*");
+	//	config.addAllowedOrigin("*");
+	//	config.setAllowCredentials(true);
+	//	configSource.registerCorsConfiguration("/**", config);
+	//	return new CorsWebFilter(configSource);
+	//}
 
 	public static void main(String[] args) {
 		SpringApplication.run(RenrenApplication.class, args);
