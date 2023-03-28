@@ -1,3 +1,5 @@
+server:
+  port: 88
 spring:
   application:
     name: gulimall-gateway
@@ -7,6 +9,21 @@ spring:
         server-addr: localhost:8848
       discovery:
         server-addr: localhost:8848
-        namespace: gateway
+        namespace: gulimall
+    gateway:
+      routes:
+        - id: gulimall-product
+          uri: lb://gulimall-product
+          predicates:
+            - Path=/api/product/**
+          filters:
+            - RewritePath=/api/(?<segment>.*),/$\{segment}
+        - id: renrenfast
+          uri: lb://renrenfast
+          predicates:
+            - Path=/api/**
+          filters:
+            - RewritePath=/api/(?<segment>.*),/renren-fast/$\{segment}
+
 
 

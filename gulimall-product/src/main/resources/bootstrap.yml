@@ -13,3 +13,11 @@ spring:
       discovery:
         namespace: gulimall
         server-addr: localhost:8848
+mybatis-plus:
+  global-config:
+    db-config:
+      logic-not-delete-value: 0
+      logic-delete-value: 1
+logging:
+  level:
+    root: debug

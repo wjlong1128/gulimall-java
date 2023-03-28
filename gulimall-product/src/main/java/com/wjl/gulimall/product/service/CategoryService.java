@@ -3,7 +3,9 @@ package com.wjl.gulimall.product.service;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.wjl.common.utils.PageUtils;
 import com.wjl.gulimall.product.entity.CategoryEntity;
+import com.wjl.gulimall.product.entity.vo.CategoryTreeVO;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -16,5 +18,13 @@ import java.util.Map;
 public interface CategoryService extends IService<CategoryEntity> {
 
     PageUtils queryPage(Map<String, Object> params);
+
+    /**
+     *  实现树形结构
+     * @return
+     */
+    List<CategoryTreeVO> listWithTree();
+
+    void removeMenuByIds(List<Long> asList);
 }
 
