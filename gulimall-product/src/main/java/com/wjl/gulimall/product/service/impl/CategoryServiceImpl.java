@@ -1,7 +1,10 @@
 package com.wjl.gulimall.product.service.impl;
 
 import com.wjl.gulimall.product.entity.vo.CategoryTreeVO;
+import com.wjl.gulimall.product.service.CategoryBrandRelationService;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Comparator;
@@ -19,10 +22,15 @@ import com.wjl.common.utils.Query;
 import com.wjl.gulimall.product.dao.CategoryDao;
 import com.wjl.gulimall.product.entity.CategoryEntity;
 import com.wjl.gulimall.product.service.CategoryService;
+import org.springframework.transaction.annotation.Transactional;
 
 
 @Service("categoryService")
 public class CategoryServiceImpl extends ServiceImpl<CategoryDao, CategoryEntity> implements CategoryService {
+
+    @Autowired
+    private CategoryBrandRelationService categoryBrandRelationService;
+
 
     @Override
     public PageUtils queryPage(Map<String, Object> params) {
@@ -61,6 +69,17 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryDao, CategoryEntity
     public void removeMenuByIds(List<Long> ids) {
         // TODO: 批量删除 检查是否被引用
         baseMapper.deleteBatchIds(ids);
+    }
+
+    @Transactional
+    @Override
+    public void updateDetail(CategoryEntity category) {
+        this.updateById(category);
+        if (!StringUtils.isNotEmpty(category.getName())){
+           return;
+        }
+
+        categoryBrandRelationService.updateCategory(category.getCatId(),category.getName());
     }
 
     private List<CategoryTreeVO> getChildred(CategoryEntity root, List<CategoryEntity> all) {

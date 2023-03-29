@@ -1,5 +1,6 @@
 package com.wjl.gulimall.product.entity.vo;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.wjl.gulimall.product.entity.CategoryEntity;
 import lombok.Data;
 
@@ -13,6 +14,10 @@ import java.util.List;
  */
 @Data
 public class CategoryTreeVO extends CategoryEntity {
+
+
+    // 为空 和为 空集合是不序列化
+    @JsonInclude (value = JsonInclude.Include.NON_EMPTY)
     List<CategoryTreeVO> children;
 
 }

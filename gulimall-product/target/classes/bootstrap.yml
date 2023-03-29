@@ -14,13 +14,15 @@ spring:
         namespace: gulimall
         server-addr: localhost:8848
 mybatis-plus:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
   global-config:
     db-config:
       logic-not-delete-value: 0
       logic-delete-value: 1
 logging:
   level:
-    root: debug
+    root: info
 minio:
   accessKey: zwOrExpDwDrfi2yT
   secretKey: UFjnvlVqBQ36mhbVbe1cumIdcVawWrk2

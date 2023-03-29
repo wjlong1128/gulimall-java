@@ -5,7 +5,11 @@ import com.baomidou.mybatisplus.annotation.TableName;
 
 import java.io.Serializable;
 import java.util.Date;
+
+import com.wjl.common.vaild.CRUDGroup;
 import lombok.Data;
+
+import javax.validation.constraints.NotNull;
 
 /**
  * 品牌分类关联
@@ -27,10 +31,12 @@ public class CategoryBrandRelationEntity implements Serializable {
 	/**
 	 * 品牌id
 	 */
+	@NotNull(groups = CRUDGroup.AddGroup.class)
 	private Long brandId;
 	/**
 	 * 分类id
 	 */
+	@NotNull(groups = CRUDGroup.AddGroup.class)
 	private Long catelogId;
 	/**
 	 * 

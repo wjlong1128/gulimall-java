@@ -12,6 +12,11 @@
         <result property="icon" column="icon"/>
         <result property="catelogId" column="catelog_id"/>
     </resultMap>
-
+    <select id="queryAttrGroupPage" resultMap="attrGroupMap">
+       select * from  pms_attr_group where catelog_id = #{id}
+        <if test="key != null and key != ''">
+            and attr_group_id = #{key} or attr_group_name like CONCAT('%',#{key},'%')
+        </if>
+    </select>
 
 </mapper>
