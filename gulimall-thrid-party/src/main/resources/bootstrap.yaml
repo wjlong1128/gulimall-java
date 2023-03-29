@@ -4,13 +4,6 @@ spring:
   profiles:
     active: dev
   cloud:
-    alicloud:
-      access-key: LTAI5tDH5B4oy5JJXkU1vVwc
-      secret-key: cyzpXBBUFvpWv6z9TzpjlI6ykZdKWa
-      oss:
-        endpoint: oss-cn-beijing.aliyuncs.com
-        # 默认无此属性 这里配置方便
-        bucket: gulimall-0328
     nacos:
       config:
         group: dev
