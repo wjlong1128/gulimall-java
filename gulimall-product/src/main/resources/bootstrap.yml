@@ -21,3 +21,8 @@ mybatis-plus:
 logging:
   level:
     root: debug
+minio:
+  accessKey: zwOrExpDwDrfi2yT
+  secretKey: UFjnvlVqBQ36mhbVbe1cumIdcVawWrk2
+  url: http://localhost:9000
+  bucket: gulimall

@@ -18,6 +18,7 @@
         <module>renren-generator</module>
         <module>gulimall-common</module>
         <module>gulimall-gateway</module>
+        <module>gulimall-thrid-party</module>
     </modules>
     <properties>
         <maven.compiler.source>8</maven.compiler.source>

@@ -12,6 +12,12 @@ spring:
         namespace: gulimall
     gateway:
       routes:
+        - id: third-party
+          uri: lb://third-party
+          predicates:
+            - Path=/api/thirdparty/**
+          filters:
+            - RewritePath=/api/thirdparty/(?<segment>.*),/$\{segment}
         - id: gulimall-product
           uri: lb://gulimall-product
           predicates:
