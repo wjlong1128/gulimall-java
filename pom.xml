@@ -19,6 +19,7 @@
         <module>gulimall-common</module>
         <module>gulimall-gateway</module>
         <module>gulimall-thrid-party</module>
+        <module>file-upload-service</module>
     </modules>
     <properties>
         <maven.compiler.source>8</maven.compiler.source>

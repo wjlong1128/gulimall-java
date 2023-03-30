@@ -30,6 +30,7 @@ import java.nio.file.Paths;
 @SpringBootTest(classes = GulimallThridparty.class)
 public class Test {
 
+
     @Autowired
     private OSS ossClient;
     @org.junit.Test

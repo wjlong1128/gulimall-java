@@ -4,19 +4,17 @@ import java.util.Arrays;
 import java.util.Map;
 
 // import org.apache.shiro.authz.annotation.RequiresPermissions;
+import com.wjl.common.entity.query.PageParams;
 import com.wjl.gulimall.product.entity.vo.AttrVO;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.wjl.gulimall.product.entity.AttrEntity;
 import com.wjl.gulimall.product.service.AttrService;
 import com.wjl.common.utils.PageUtils;
 import com.wjl.common.utils.R;
 
+import javax.websocket.server.PathParam;
 
 
 /**
@@ -31,6 +29,14 @@ import com.wjl.common.utils.R;
 public class AttrController {
     @Autowired
     private AttrService attrService;
+
+
+
+    @GetMapping("/base/list/{catelogId}")
+    public R baseAttrList(@RequestParam Map<String,Object> params,@PathVariable("catelogId") Long catelogId){
+        PageUtils page=  attrService.queryBaseAttrList(params,catelogId);
+       return R.ok().put("page",page);
+    }
 
     /**
      * 列表
