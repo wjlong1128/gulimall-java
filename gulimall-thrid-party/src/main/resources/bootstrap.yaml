@@ -1,0 +1,23 @@
+spring:
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 10MB
+  application:
+    name: third-party
+  profiles:
+    active: dev
+  cloud:
+    nacos:
+      config:
+        group: dev
+        file-extension: yaml
+        namespace: third-party
+        ext-config:
+          - data-id: minio.yaml
+            group: dev
+            refresh: true
+        server-addr: localhost:8848
+      discovery:
+        server-addr: localhost:8848
+        namespace: gulimall

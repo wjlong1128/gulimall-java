@@ -1,0 +1,32 @@
+spring:
+  application:
+    name: gulimall-product
+  profiles:
+    active: dev
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+  cloud:
+    nacos:
+      config:
+        group: dev
+        namespace: product
+        file-extension: yaml
+        server-addr: localhost:8848
+      discovery:
+        namespace: gulimall
+        server-addr: localhost:8848
+mybatis-plus:
+#  configuration:
+#    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+  global-config:
+    db-config:
+      logic-not-delete-value: 0
+      logic-delete-value: 1
+logging:
+  level:
+    root: info
+minio:
+  accessKey: zwOrExpDwDrfi2yT
+  secretKey: UFjnvlVqBQ36mhbVbe1cumIdcVawWrk2
+  url: http://localhost:9000
+  bucket: gulimall

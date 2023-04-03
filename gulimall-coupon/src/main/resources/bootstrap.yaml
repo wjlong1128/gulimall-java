@@ -1,0 +1,19 @@
+spring:
+  application:
+    name: gulimall-coupon
+  profiles:
+    active: dev
+  cloud:
+    nacos:
+      config:
+        group: dev
+        namespace: coupon
+        file-extension: yaml
+        server-addr: localhost:8848
+        ext-config:
+          - data-id: debug.yaml
+            group: dev
+            refresh: true
+      discovery:
+        namespace: gulimall
+        server-addr: localhost:8848
