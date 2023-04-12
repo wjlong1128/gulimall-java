@@ -4,7 +4,6 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import com.wjl.common.utils.PageUtils;
 import com.wjl.gulimall.product.entity.AttrEntity;
 import com.wjl.gulimall.product.entity.vo.AttrGroupRelationVO;
-import com.wjl.gulimall.product.entity.vo.AttrGroupVO;
 import com.wjl.gulimall.product.entity.vo.AttrRepVO;
 import com.wjl.gulimall.product.entity.vo.AttrVO;
 
@@ -37,5 +36,6 @@ public interface AttrService extends IService<AttrEntity> {
     PageUtils getNoRelationAttr(Long attrgroupId, Map<String, Object> params);
 
 
+    List<Long> selectSearchAttrIds(List<Long> attrIds);
 }
 

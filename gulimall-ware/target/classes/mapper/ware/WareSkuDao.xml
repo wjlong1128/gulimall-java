@@ -12,6 +12,15 @@
         <result property="skuName" column="sku_name"/>
         <result property="stockLocked" column="stock_locked"/>
     </resultMap>
+    <update id="addStock">
+       update wms_ware_sku set stock=#{skuNum} where sku_id = #{skuId} and ware_id = #{wareId}
+    </update>
+    <select id="getSkuIdHasStockVoList" resultType="com.wjl.common.entity.vo.SkuHasStockVo">
+        select sku_id skuId, (stock-stock_locked) as stock from wms_ware_sku where sku_id in
+        <foreach collection="ids" item="id" open="(" close=")" separator=",">
+            #{id}
+        </foreach>
+    </select>
 
 
 </mapper>

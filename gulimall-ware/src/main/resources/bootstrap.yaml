@@ -9,7 +9,11 @@ spring:
         group: dev
         namespace: ware
         file-extension: yaml
-        server-addr: localhost:8848
+        server-addr: 192.168.56.103:8848
       discovery:
         namespace: gulimall
-        server-addr: localhost:8848
+        server-addr: 192.168.56.103:8848
+
+mybatis-plus:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl

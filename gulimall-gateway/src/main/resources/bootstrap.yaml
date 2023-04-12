@@ -6,9 +6,9 @@ spring:
   cloud:
     nacos:
       config:
-        server-addr: localhost:8848
+        server-addr: 192.168.56.103:8848
       discovery:
-        server-addr: localhost:8848
+        server-addr: 192.168.56.103:8848
         namespace: gulimall
     gateway:
       routes:
@@ -43,5 +43,13 @@ spring:
           filters:
             - RewritePath=/api/(?<segment>.*),/renren-fast/$\{segment}
 
+        - id: wjl-cn
+          uri: lb://gulimall-product
+          predicates:
+            - Host=wjl.cn,wjl.com,gulimall.com,item.gulimall.com
+        - id: wjl-cn-search
+          uri: lb://gulimall-search
+          predicates:
+            - Host=search.gulimall.com
 
 

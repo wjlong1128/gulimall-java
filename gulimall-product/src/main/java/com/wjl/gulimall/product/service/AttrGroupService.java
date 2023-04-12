@@ -6,6 +6,7 @@ import com.wjl.common.utils.PageUtils;
 import com.wjl.gulimall.product.entity.AttrGroupEntity;
 import com.wjl.gulimall.product.entity.vo.AttrGroupVO;
 import com.wjl.gulimall.product.entity.vo.AttrGroupWithAttrVO;
+import com.wjl.gulimall.product.entity.vo.SkuItemVo;
 
 import java.util.List;
 import java.util.Map;
@@ -26,5 +27,7 @@ public interface AttrGroupService extends IService<AttrGroupEntity> {
     AttrGroupVO getAttrGroupVO(Long attrGroupId);
 
     List<AttrGroupWithAttrVO> getAttrGroupWithAttrVO(Long catelogId);
+
+    List<SkuItemVo.SpuItemAttrGroupVo> getAttrGroupWithAttrsBySpuId(Long spuId, Long catalogId);
 }
 

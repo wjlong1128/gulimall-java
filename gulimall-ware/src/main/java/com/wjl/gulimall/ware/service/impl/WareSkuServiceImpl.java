@@ -3,6 +3,7 @@ package com.wjl.gulimall.ware.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.wjl.common.entity.vo.SkuHasStockVo;
 import com.wjl.common.utils.PageUtils;
 import com.wjl.common.utils.Query;
 import com.wjl.gulimall.ware.dao.WareSkuDao;
@@ -67,6 +68,12 @@ public class WareSkuServiceImpl extends ServiceImpl<WareSkuDao, WareSkuEntity> i
         // TODO 远程查询skuName
         entity.setWareId(wareId);
         this.save(entity);
+    }
+
+    @Override
+    public List<SkuHasStockVo> getSkuHasStocks(List<Long> skuIdList) {
+        List<SkuHasStockVo> skuIdHasStockVoList = this.baseMapper.getSkuIdHasStockVoList(skuIdList);
+        return skuIdHasStockVoList;
     }
 
 }

@@ -1,34 +1,33 @@
 package com.wjl.gulimall.product.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.wjl.common.entity.query.PageParams;
+import com.wjl.common.utils.PageUtils;
+import com.wjl.common.utils.Query;
+import com.wjl.gulimall.product.dao.AttrGroupDao;
 import com.wjl.gulimall.product.dao.CategoryDao;
-import com.wjl.gulimall.product.entity.AttrAttrgroupRelationEntity;
 import com.wjl.gulimall.product.entity.AttrEntity;
+import com.wjl.gulimall.product.entity.AttrGroupEntity;
 import com.wjl.gulimall.product.entity.vo.AttrGroupVO;
 import com.wjl.gulimall.product.entity.vo.AttrGroupWithAttrVO;
+import com.wjl.gulimall.product.entity.vo.SkuItemVo;
 import com.wjl.gulimall.product.service.AttrAttrgroupRelationService;
+import com.wjl.gulimall.product.service.AttrGroupService;
 import com.wjl.gulimall.product.service.AttrService;
 import com.wjl.gulimall.product.service.CategoryService;
-import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.*;
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
-
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.wjl.common.utils.PageUtils;
-import com.wjl.common.utils.Query;
-
-import com.wjl.gulimall.product.dao.AttrGroupDao;
-import com.wjl.gulimall.product.entity.AttrGroupEntity;
-import com.wjl.gulimall.product.service.AttrGroupService;
 
 
 @Service("attrGroupService")
@@ -123,6 +122,18 @@ public class AttrGroupServiceImpl extends ServiceImpl<AttrGroupDao, AttrGroupEnt
 
         // 根据分组查出组内所有的属性
         return attrGroupWithAttrVOs;
+    }
+
+    /**
+     * 查出所有对应spuid的所有属性的分组以及当前分组下的所有属性对应的值
+     *
+     * @param spuId
+     * @param catalogId
+     * @return
+     */
+    @Override
+    public List<SkuItemVo.SpuItemAttrGroupVo> getAttrGroupWithAttrsBySpuId(Long spuId, Long catalogId) {
+        return this.getBaseMapper().getAttrGroupWithAttrsBySpuId(spuId,catalogId);
     }
 
 

@@ -15,7 +15,7 @@ spring:
   cloud:
     nacos:
       discovery:
-        server-addr: localhost:8848
+        server-addr: 192.168.56.103:8848
         namespace: gulimall
   application:
     name: renrenfast

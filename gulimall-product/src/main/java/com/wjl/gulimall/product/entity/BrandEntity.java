@@ -2,18 +2,13 @@ package com.wjl.gulimall.product.entity;
 
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
-
-import java.io.Serializable;
-import java.util.Date;
-
 import com.wjl.common.vaild.CRUDGroup;
-import com.wjl.common.vaild.ann.ListValue;
 import lombok.Data;
-import org.hibernate.validator.constraints.EAN;
 import org.hibernate.validator.constraints.Range;
 import org.hibernate.validator.constraints.URL;
 
 import javax.validation.constraints.*;
+import java.io.Serializable;
 
 /**
  * 品牌

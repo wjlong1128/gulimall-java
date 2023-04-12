@@ -1,41 +1,36 @@
 package com.wjl.gulimall.product.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.wjl.common.consts.ProductConsts;
+import com.wjl.common.utils.PageUtils;
+import com.wjl.common.utils.Query;
 import com.wjl.gulimall.product.dao.AttrAttrgroupRelationDao;
+import com.wjl.gulimall.product.dao.AttrDao;
 import com.wjl.gulimall.product.dao.AttrGroupDao;
 import com.wjl.gulimall.product.dao.CategoryDao;
 import com.wjl.gulimall.product.entity.AttrAttrgroupRelationEntity;
+import com.wjl.gulimall.product.entity.AttrEntity;
 import com.wjl.gulimall.product.entity.AttrGroupEntity;
 import com.wjl.gulimall.product.entity.CategoryEntity;
 import com.wjl.gulimall.product.entity.vo.AttrGroupRelationVO;
-import com.wjl.gulimall.product.entity.vo.AttrGroupVO;
 import com.wjl.gulimall.product.entity.vo.AttrRepVO;
 import com.wjl.gulimall.product.entity.vo.AttrVO;
+import com.wjl.gulimall.product.service.AttrService;
 import com.wjl.gulimall.product.service.CategoryService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
-
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.wjl.common.utils.PageUtils;
-import com.wjl.common.utils.Query;
-
-import com.wjl.gulimall.product.dao.AttrDao;
-import com.wjl.gulimall.product.entity.AttrEntity;
-import com.wjl.gulimall.product.service.AttrService;
-import org.springframework.transaction.annotation.Transactional;
 
 
 @Service("attrService")
@@ -71,7 +66,7 @@ public class AttrServiceImpl extends ServiceImpl<AttrDao, AttrEntity> implements
         this.save(attrEntity);
         // 更新关联表
         // 如果是基本属性就更新关联关系
-        if (attrEntity.getAttrType().equals(ProductConsts.AttrEnum.ATTR_TYPE_BASE.getCode()) && attrVO.getAttrGroupId() != null ) {
+        if (attrEntity.getAttrType().equals(ProductConsts.AttrEnum.ATTR_TYPE_BASE.getCode()) && attrVO.getAttrGroupId() != null) {
             AttrAttrgroupRelationEntity entity = new AttrAttrgroupRelationEntity();
             entity.setAttrGroupId(attrVO.getAttrGroupId());
             entity.setAttrId(attrEntity.getAttrId());
@@ -99,7 +94,7 @@ public class AttrServiceImpl extends ServiceImpl<AttrDao, AttrEntity> implements
             LambdaQueryWrapper<AttrAttrgroupRelationEntity> queryWrapper1 = new LambdaQueryWrapper<>();
             queryWrapper1.eq(AttrAttrgroupRelationEntity::getAttrId, attr.getAttrId());
             AttrAttrgroupRelationEntity attrAttrgroupRelationEntity = attrAttrgroupRelationDao.selectOne(queryWrapper1);
-            if (attrAttrgroupRelationEntity != null ) {
+            if (attrAttrgroupRelationEntity != null) {
                 AttrGroupEntity attrGroupEntity = attrGroupDao.selectById(attrAttrgroupRelationEntity.getAttrGroupId());
                 if (attrGroupEntity != null && attrGroupEntity.getAttrGroupName() != null)
                     attrRepVO.setGroupName(attrGroupEntity.getAttrGroupName());
@@ -208,6 +203,7 @@ public class AttrServiceImpl extends ServiceImpl<AttrDao, AttrEntity> implements
 
     /**
      * 获取当前分组没有关联的所有属性
+     *
      * @param attrgroupId
      * @param params
      * @return
@@ -223,7 +219,7 @@ public class AttrServiceImpl extends ServiceImpl<AttrDao, AttrEntity> implements
         List<Long> attrGroupIds = attrGroupEntities.stream().map(AttrGroupEntity::getAttrGroupId).collect(Collectors.toList());
         LambdaQueryWrapper<AttrEntity> queryWrapper = new LambdaQueryWrapper<AttrEntity>()
                 .eq(AttrEntity::getCatelogId, catelogId)
-                .eq(AttrEntity::getAttrType,ProductConsts.AttrEnum.ATTR_TYPE_BASE.getCode());
+                .eq(AttrEntity::getAttrType, ProductConsts.AttrEnum.ATTR_TYPE_BASE.getCode());
         if (!attrGroupIds.isEmpty()) {
             // 2. 根据这些分组获取他们所持有的属性
             List<AttrAttrgroupRelationEntity> groupId = attrAttrgroupRelationDao.selectList(new LambdaQueryWrapper<AttrAttrgroupRelationEntity>()
@@ -234,12 +230,17 @@ public class AttrServiceImpl extends ServiceImpl<AttrDao, AttrEntity> implements
                 queryWrapper.notIn(AttrEntity::getAttrId, attrIds);
         }
         if (params.get("key") != null) {
-            queryWrapper.and(i->{
+            queryWrapper.and(i -> {
                 i.eq(AttrEntity::getAttrId, params.get("key")).or().like(AttrEntity::getAttrName, params.get("key"));
             });
         }
         IPage<AttrEntity> page = this.page(new Query<AttrEntity>().getPage(params), queryWrapper);
         return new PageUtils(page);
+    }
+
+    @Override
+    public List<Long> selectSearchAttrIds(List<Long> attrIds) {
+        return this.baseMapper.selectAttrIdsWithType(attrIds);
     }
 
 

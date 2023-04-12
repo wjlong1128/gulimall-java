@@ -1,20 +1,35 @@
+
+server:
+  port: 11300
 spring:
   application:
     name: gulimall-product
   profiles:
     active: dev
+  thymeleaf:
+    cache: false
   jackson:
     date-format: yyyy-MM-dd HH:mm:ss
+  redis:
+    host: 192.168.56.103
+    port: 6379
+    password: root
+  cache:
+    type: redis
+    redis:
+#      是否缓存空值
+      cache-null-values: true
   cloud:
     nacos:
       config:
         group: dev
         namespace: product
         file-extension: yaml
-        server-addr: localhost:8848
+        server-addr: 192.168.56.103:8848
       discovery:
         namespace: gulimall
-        server-addr: localhost:8848
+        server-addr: 192.168.56.103:8848
+
 mybatis-plus:
 #  configuration:
 #    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
@@ -25,8 +40,3 @@ mybatis-plus:
 logging:
   level:
     root: info
-minio:
-  accessKey: zwOrExpDwDrfi2yT
-  secretKey: UFjnvlVqBQ36mhbVbe1cumIdcVawWrk2
-  url: http://localhost:9000
-  bucket: gulimall

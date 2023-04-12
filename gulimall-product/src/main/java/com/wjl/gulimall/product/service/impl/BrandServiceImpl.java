@@ -1,23 +1,20 @@
 package com.wjl.gulimall.product.service.impl;
 
-import com.wjl.gulimall.product.service.CategoryBrandRelationService;
-import lombok.RequiredArgsConstructor;
-import org.apache.commons.lang3.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
-import java.security.Key;
-import java.util.Map;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.wjl.common.utils.PageUtils;
 import com.wjl.common.utils.Query;
-
 import com.wjl.gulimall.product.dao.BrandDao;
 import com.wjl.gulimall.product.entity.BrandEntity;
 import com.wjl.gulimall.product.service.BrandService;
+import com.wjl.gulimall.product.service.CategoryBrandRelationService;
+import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.Map;
 
 
 //@RequiredArgsConstructor
@@ -51,6 +48,12 @@ public class BrandServiceImpl extends ServiceImpl<BrandDao, BrandEntity> impleme
         if (StringUtils.isNotEmpty(brand.getName())){
             categoryBrandRelationService.updateBrand(brand.getBrandId(),brand.getName());
         }
+    }
+
+    @Override
+    public BrandEntity queryById(Long brandId) {
+        BrandEntity brandEntity = this.baseMapper.selectById(brandId);
+        return brandEntity;
     }
 
 }

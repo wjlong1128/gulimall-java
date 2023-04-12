@@ -21,4 +21,6 @@ public interface CouponFeignService {
 
     @PostMapping("coupon/skufullreduction/saveinfo")
     R saveSkuReduction(@RequestBody SkuReductionDTO skuReductionDTO);
+
+
 }

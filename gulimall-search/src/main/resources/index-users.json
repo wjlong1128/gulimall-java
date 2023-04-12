@@ -1,0 +1,20 @@
+{
+  "mappings": {
+    "properties": {
+      "id":{
+        "type":"keyword"
+      },
+
+      "userName":{
+        "type":"text",
+        "analyzer": "ik_smart"
+      },
+      "age":{
+        "type":"integer"
+      },
+      "addr":{
+        "type":"text"
+      }
+    }
+  }
+}
